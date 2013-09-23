@@ -15,7 +15,7 @@ import edu.cmu.deiis.types.*;
 public class NGramAnnotator extends JCasAnnotator_ImplBase {
 	Integer[] lNGramN;
 	
-	public NGramAnnotator(UimaContext aContext) throws ResourceInitializationException {
+	public void initialize(UimaContext aContext) throws ResourceInitializationException {
 		super.initialize(aContext);
 		lNGramN = (Integer[]) aContext.getConfigParameterValue("ngramn");
 		
@@ -39,10 +39,33 @@ public class NGramAnnotator extends JCasAnnotator_ImplBase {
 					aNgram.setEnd(TokenCharEd);
 					aNgram.setElements(FSCollectionFactory.createFSArray(aJcas, JCasUtil.selectCovered(Token.class,aNgram)));
 					aNgram.setElementType(Token.class.getName());
+					aNgram.addToIndexes();
 				}
-			}
-			return;
+			}			
 		}
+		
+		for (Answer ans : JCasUtil.select(aJcas, Answer.class)) {
+			List<Token> lToken = new ArrayList<Token> (JCasUtil.selectCovered(Token.class, ans));
+			
+			for (int TokenSt = 0; TokenSt < lToken.size(); TokenSt ++) {
+				for (int ngramn : lNGramN) {
+					int TokenEd = TokenSt + ngramn - 1;
+					if (TokenEd >= lToken.size()) {
+						continue;
+					}
+					int TokenCharSt = lToken.get(TokenSt).getBegin();
+					int TokenCharEd = lToken.get(TokenEd).getEnd();
+					NGram aNgram = new NGram(aJcas);
+					aNgram.setBegin(TokenCharSt);
+					aNgram.setEnd(TokenCharEd);
+					aNgram.setElements(FSCollectionFactory.createFSArray(aJcas, JCasUtil.selectCovered(Token.class,aNgram)));
+					aNgram.setElementType(Token.class.getName());
+					aNgram.addToIndexes();
+				}
+			}			
+		}
+		
+		return;
 
 	}
 

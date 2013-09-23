@@ -28,17 +28,24 @@ public class Tokenization extends JCasAnnotator_ImplBase {
 		String RawText = aJcas.getDocumentText();
 		
 		Properties props = new Properties();
-		props.put("annotators","tokenize");
+		props.put("annotators","tokenize,ssplit");
 		StanfordCoreNLP pipeline = new StanfordCoreNLP(props);
-		Annotation document = new Annotation(RawText);
+		Annotation document = new Annotation(RawText);		
 		pipeline.annotate(document);
-		
-		for (CoreMap sent : document.get(SentencesAnnotation.class)){		
+//		System.out.println(document);
+//		System.out.println(RawText);
+//		System.out.println(SentencesAnnotation.class);
+//		System.out.println(document.get(SentencesAnnotation.class));
+		for (CoreMap sent : document.get(SentencesAnnotation.class)){			
 			for (CoreLabel token : sent.get(TokensAnnotation.class)) {
 				int begin = token.get(CharacterOffsetBeginAnnotation.class);
 				int end = token.get(CharacterOffsetEndAnnotation.class);
 				
 				Token sToken = new Token(aJcas, begin,end);
+				if (sToken.getCoveredText().equals(".") || sToken.getCoveredText().equals("?"))
+				{
+					continue;
+				}
 				sToken.addToIndexes(aJcas);				
 			}		
 		}		

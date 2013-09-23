@@ -29,7 +29,8 @@ public class ResultAnalysis extends JCasAnnotator_ImplBase {
 				CorrectNum += 1.0;				
 			}
 		}
-		
+//		System.out.println("Answer num:");
+//		System.out.println(lAnswer.size());
 		Collections.sort(lAnswer, new Comparator<AnswerScore> () {
 			public int compare(AnswerScore a, AnswerScore b) {
 				return a.getScore() > b.getScore() ? -1 : 1;
@@ -55,7 +56,7 @@ public class ResultAnalysis extends JCasAnnotator_ImplBase {
 			System.out.println(String.format("%s %.2f %s", label,ans.getScore(),ans.getAnswer().getCoveredText()));			
 		}
 		
-		System.out.println(String.format("Precision at %d %.2\n",CorrectNum,PAtN));		
+		System.out.println(String.format("Precision at %d %.2f\n",(int) CorrectNum,PAtN));		
 		return;
 	}
 	
