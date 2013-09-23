@@ -6,7 +6,14 @@ import org.apache.uima.jcas.JCas;
 
 import edu.cmu.deiis.types.Answer;
 import edu.cmu.deiis.types.Question;
-
+/**
+ * 
+ * @author cx
+ *I Segment the input raw text in aJCas into question and sentences.
+ *Question is identified by initial Q. Answers are by initial A.
+ *The ground truth label of answers are read by second col in Answer's line.
+ *Output is by annotated question and answer type into aJCas. types are defined in type system.
+ */
 public class QuestionAnswerReader extends JCasAnnotator_ImplBase {
 
 	public QuestionAnswerReader() {

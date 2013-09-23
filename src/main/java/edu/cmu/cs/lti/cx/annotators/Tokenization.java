@@ -15,7 +15,11 @@ import edu.stanford.nlp.util.CoreMap;
 import org.apache.uima.analysis_component.JCasAnnotator_ImplBase;
 import org.apache.uima.analysis_engine.AnalysisEngineProcessException;
 import org.apache.uima.jcas.JCas;
-
+/**
+ * 
+ * @author cx
+ * I tokenize the given aJcas's text into tokens, using StanfordCoreNLP API's.
+ */
 public class Tokenization extends JCasAnnotator_ImplBase {
 
 	public Tokenization() {

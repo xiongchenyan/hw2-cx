@@ -12,6 +12,14 @@ import org.apache.uima.fit.util.FSCollectionFactory;
 import org.apache.uima.fit.util.JCasUtil;
 
 import edu.cmu.deiis.types.*;
+
+/**
+ * 
+ * @author cx
+ *I annotate ngrams to aJcas. Specifically, only to questions and answers of aJcas.
+ *there could be multiple ngram annotated. set by parameter "ngramn" and kept lNGramN.
+ */
+
 public class NGramAnnotator extends JCasAnnotator_ImplBase {
 	Integer[] lNGramN;
 	

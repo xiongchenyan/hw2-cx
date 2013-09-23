@@ -13,7 +13,12 @@ import org.apache.uima.jcas.JCas;
 import edu.cmu.deiis.types.AnswerScore;
 import edu.cmu.deiis.types.Question;
 
-
+/**
+ * 
+ * @author cx
+ * I calculate precision @ N for a aJcas, whose question and answer are annotated, and answer score is calculated and annotated as well.
+ * I will output to screen the required format of results.
+ */
 public class ResultAnalysis extends JCasAnnotator_ImplBase {
 	double CollectionPSum = 0.0;
 	int DocNum = 0;
